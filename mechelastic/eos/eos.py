@@ -214,13 +214,8 @@ class EOS:
 
         if self.eostype == "energy":
 
-            # reading the files with volume and energy
-            # columns.
-
-            fi = open(infile, "r")
-            data = fi.readlines()
-            fi.close()
-
+            with open(infile, "r") as fi:
+                data = fi.readlines()
             self.volume = []
             self.energy = []
 
@@ -242,13 +237,8 @@ class EOS:
 
         elif self.eostype == "pressure":
 
-            # reading the files with volume and energy
-            # columns.
-
-            fi = open(infile, "r")
-            data = fi.readlines()
-            fi.close()
-
+            with open(infile, "r") as fi:
+                data = fi.readlines()
             self.volume = []
             self.pressure = []
 
@@ -516,7 +506,7 @@ class EOS:
 
             ## TODO: Add other models
 
-            if self.model is None:
+            if self.model is None or self.model == "Birch-Murnaghan":
 
                 axs.plot(
                     au_converter_v * self.vol_array / self.natoms,
@@ -536,17 +526,6 @@ class EOS:
                 #     edgecolors="black",
                 #     label="Raw Data",
                 # )
-
-            elif self.model == "Birch-Murnaghan":
-                axs.plot(
-                    au_converter_v * self.vol_array / self.natoms,
-                    self.eos_birch_murnaghan_pressure(
-                        self.eos_birch_murnaghan_pressure_fitted.x, self.vol_array
-                    ),
-                    "r-",
-                    linewidth=2,
-                    label="Birch-Murnaghan",
-                )
 
             if self.raw_data:
                 axs.scatter(
@@ -574,17 +553,8 @@ class EOS:
             fig = plt.figure(figsize=(13, 9))
             axs2 = fig.add_subplot(111)
 
-            if self.model is None:
+            if self.model is None or self.model == "Birch-Murnaghan":
 
-                axs2.plot(
-                    au_converter_v * self.volume / self.natoms,
-                    au_converter_e * self.E_birch_murnaghan / self.natoms,
-                    "r-",
-                    linewidth=2,
-                    label="Birch-Murnaghan",
-                )
-
-            elif self.model == "Birch-Murnaghan":
                 axs2.plot(
                     au_converter_v * self.volume / self.natoms,
                     au_converter_e * self.E_birch_murnaghan / self.natoms,

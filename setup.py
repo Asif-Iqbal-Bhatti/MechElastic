@@ -10,10 +10,8 @@ def get_version_info():
     Method adopted from PyChemia."""
 
     basepath = pathlib.Path(__file__).parent.absolute()
-    rf = open(str(basepath) + os.sep + "setup.json")
-    release_data = json.load(rf)
-    rf.close()
-
+    with open(str(basepath) + os.sep + "setup.json") as rf:
+        release_data = json.load(rf)
     return release_data
 
 

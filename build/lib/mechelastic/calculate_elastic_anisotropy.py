@@ -17,11 +17,11 @@ def calculate_elastic_anisotropy(
     adjust_pressure=True,
     npoints=100,
     show=True,
-    
+
     #keywords for plot_3D_slice
     normal = (1,0,0), 
     origin =(0,0,0)
-    
+
 ):
     """
     This method calculates the elastic properties
@@ -46,9 +46,7 @@ def calculate_elastic_anisotropy(
         col = elastic_tensor.shape[1]
         rowsList = []
         for i in range(row):
-            columnsList = []
-            for j in range(col):
-                columnsList.append(round(elastic_tensor[i, j], 3))
+            columnsList = [round(elastic_tensor[i, j], 3) for j in range(col)]
             rowsList.append(columnsList)
 
     elif code == "abinit":
@@ -60,9 +58,7 @@ def calculate_elastic_anisotropy(
         col = elastic_tensor.shape[1]
         rowsList = []
         for i in range(row):
-            columnsList = []
-            for j in range(col):
-                columnsList.append(round(elastic_tensor[i, j], 3))
+            columnsList = [round(elastic_tensor[i, j], 3) for j in range(col)]
             rowsList.append(columnsList)
 
     elif code == "qe_ElaStic":
@@ -74,9 +70,7 @@ def calculate_elastic_anisotropy(
         col = elastic_tensor.shape[1]
         rowsList = []
         for i in range(row):
-            columnsList = []
-            for j in range(col):
-                columnsList.append(round(elastic_tensor[i, j], 3))
+            columnsList = [round(elastic_tensor[i, j], 3) for j in range(col)]
             rowsList.append(columnsList)
 
     elif code == "qe_thermo_pw":
@@ -88,12 +82,10 @@ def calculate_elastic_anisotropy(
         col = elastic_tensor.shape[1]
         rowsList = []
         for i in range(row):
-            columnsList = []
-            for j in range(col):
-                columnsList.append(round(elastic_tensor[i, j], 3))
+            columnsList = [round(elastic_tensor[i, j], 3) for j in range(col)]
             rowsList.append(columnsList)
 
-    
+
     elastic_tensor = ELATE(rowsList, density)
 
     if plot == "2D":

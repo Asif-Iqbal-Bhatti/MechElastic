@@ -121,11 +121,7 @@ print("-----------------------------")
 # calculate elastic properties
 def main():
 
-    if args.adjust_pressure == 1:
-        args.adjust_pressure = True
-    else:
-        args.adjust_pressure = False
-
+    args.adjust_pressure = args.adjust_pressure == 1
     mechelastic.calculate_elastic(
         code=args.code,
         dim=args.dim,

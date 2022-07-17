@@ -5,6 +5,7 @@ Created on Mon Aug 24 22:43:48 2020
 @author: lllan
 """
 
+
 # from pymatgen.core import Structure
 # from pymatgen.ext.matproj import MPRester
 # from mechelastic.core import ELATE, ElasticProperties, Structure
@@ -61,9 +62,7 @@ row = elastic_tensor.shape[0]
 col = elastic_tensor.shape[1]
 rowsList = []
 for i in range(row):
-    columnsList = []
-    for j in range(col):
-        columnsList.append(round(elastic_tensor[i, j], 3))
+    columnsList = [round(elastic_tensor[i, j], 3) for j in range(col)]
     rowsList.append(columnsList)
 
 elate_tensor = ELATE(rowsList)

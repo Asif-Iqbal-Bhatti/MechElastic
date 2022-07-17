@@ -148,9 +148,7 @@ class Surface(object):
 
         for iface in faces:
             new_faces.append(len(iface))
-            for ivert in iface:
-                new_faces.append(ivert)
-                
+            new_faces.extend(iter(iface))
         self.pyvista_obj = pyvista.PolyData(verts, np.array(new_faces))
         if self.scalars is not None:
             self.pyvista_obj['scalars'] = self.scalars
@@ -283,7 +281,7 @@ def convert_from_pyvista_faces(pyvista_obj):
     """
     new_faces = []
     courser = 0
-    for iface in range(pyvista_obj.n_faces):
+    for _ in range(pyvista_obj.n_faces):
         start = courser + 1
         end = start + pyvista_obj.faces[courser]
         face = pyvista_obj.faces[start:end]
@@ -311,9 +309,10 @@ def boolean_add(surfaces):
     ret = surfaces[0].pyvista_obj.copy()
     for isurface in range(1, len(surfaces)):
         ret = ret.boolean_add(surfaces[isurface].pyvista_obj, inplace=False)
-    surf = Surface(verts=ret.points,
-                   faces=convert_from_pyvista_faces(ret),
-                   face_normals=ret.face_normals,
-                   vert_normals=ret.point_normals,
-                   scalars=ret.active_scalars)
-    return surf
+    return Surface(
+        verts=ret.points,
+        faces=convert_from_pyvista_faces(ret),
+        face_normals=ret.face_normals,
+        vert_normals=ret.point_normals,
+        scalars=ret.active_scalars,
+    )

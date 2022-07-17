@@ -5,6 +5,7 @@ Created on Wed Aug 19 01:10:57 2020
 @author: lllan
 """
 
+
 from mechelastic.parsers import QE_thermo_pw_Parser
 from mechelastic import calculate_elastic_anisotropy
 from mechelastic.core import ELATE
@@ -43,11 +44,9 @@ row = elastic_tensor.shape[0]
 col = elastic_tensor.shape[1]
 rowsList = []
 for i in range(row):
-    columnsList = []
-    for j in range(col):
-        columnsList.append(round(elastic_tensor[i, j],3))
+    columnsList = [round(elastic_tensor[i, j],3) for j in range(col)]
     rowsList.append(columnsList)
-    
+
 elastic_tensor = ELATE.ELATE(rowsList)
 
 voigt_shear  = elastic_tensor.voigtShear

@@ -31,16 +31,16 @@ class QE_ElaStic_Parser:
 
         self.infile = infile
         self.outfile = outfile
-        
+
         self.elastic_tensor = None
         self.compaliance_tensor = None
         self.structure = None
         self.density = None
-          
+
         self.outText = None
         self.inText = None
 
-        
+
         self._parse_files()
 
 

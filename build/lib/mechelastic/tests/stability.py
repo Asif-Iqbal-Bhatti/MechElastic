@@ -50,7 +50,7 @@ def stability_test(matrix, crystal_type, verbose=True):
             if condition == False:
                 stable = False
 
-    if crystal_type == "hexagonal":
+    elif crystal_type == "hexagonal":
         to_print += "Hexagonal crystal system \n"
         to_print += "Born stability criteria for the stability of hexagonal system are: Ref.[1]  \n"
         to_print += (
@@ -84,200 +84,7 @@ def stability_test(matrix, crystal_type, verbose=True):
             if condition == False:
                 stable = False
 
-    if crystal_type == "tetragonal":
-        to_print += "Tetragonal crystal system \n"
-        to_print += "Born stability criteria for the stability of Tetragonal system are: Ref.[1]  \n"
-        to_print += "(i) C11 - C12 > 0;    (ii) 2*C13^2 < C33(C11 + C12);   (iii) C44 > 0; \n(iv) C66 > 0;    (v) 2C16^2 < C66*(C11-C12) \n "
-
-        # check (i)   keep in mind list starts with 0, so c11 is stored as c00
-        if c[0][0] - c[0][1] > 0.0:
-            to_print += "Condition (i) is satisfied."
-            condition1 = True
-        else:
-            to_print += "Condition (i) is NOT satisfied."
-            condition1 = False
-
-        if 2 * (c[0][2] * c[0][2]) < c[2][2] * (c[0][0] + c[0][1]):
-            to_print += "Condition (ii) is satisfied."
-            condition2 = True
-        else:
-            to_print += "Condition (ii) is NOT satisfied."
-            condition2 = False
-
-        if c[3][3] > 0.0:
-            to_print += "Condition (iii) is satisfied."
-            condition3 = True
-        else:
-            to_print += "Condition (iii) is NOT satisfied."
-            condition3 = False
-
-        if c[5][5] > 0.0:
-            to_print += "Condition (iv) is satisfied."
-            condition4 = True
-        else:
-            to_print += "Condition (iv) is NOT satisfied."
-            condition4 = False
-
-        if 2 * c[0][5] * c[0][5] < c[5][5] * (c[0][0] - c[0][1]):
-            to_print += "Condition (v) is satisfied."
-            condition5 = True
-        else:
-            to_print += "Condition (v) is NOT satisfied."
-            condition5 = False
-
-        conditions = (condition1, condition2, condition3, condition4, condition5)
-
-        for condition in conditions:
-            if condition == False:
-                stable = False
-
-    if crystal_type == "rhombohedral-1":
-        to_print += "Rhombohedral (class-1): point group: 3m, -3m and 32 \n"
-        to_print += "Born stability criteria for this class are: Ref.[1]  \n"
-        to_print += "(i) C11 - C12 > 0;    (ii) C13^2 < (1/2)*C33(C11 + C12);   (iii) C14^2 < (1/2)*C44*(C11-C12) = C44*C66; \n(iv)  C44 > 0; \n "
-
-        if c[0][0] - c[0][1] > 0.0:
-            to_print += "Condition (i) is satisfied."
-            condition1 = True
-        else:
-            to_print += "Condition (i) is NOT satisfied."
-            condition1 = False
-
-        if (c[0][2] * c[0][2]) < (0.5) * c[2][2] * (c[0][0] + c[0][1]):
-            to_print += "Condition (ii) is satisfied."
-            condition2 = True
-        else:
-            to_print += "Condition (ii) is NOT satisfied."
-            condition2 = False
-
-        if c[0][3] * c[0][3] < 0.5 * c[3][3] * (c[0][0] - c[0][1]):
-            to_print += "Condition (iii) is satisfied."
-            condition3 = True
-        else:
-            to_print += "Condition (iii) is NOT satisfied."
-            condition3 = False
-
-        if c[3][3] > 0.0:
-            to_print += "Condition (iv) is satisfied."
-            condition4 = True
-        else:
-            to_print += "Condition (iv) is NOT satisfied."
-            condition4 = False
-
-        conditions = (condition1, condition2, condition3, condition4)
-
-        for condition in conditions:
-            if condition == False:
-                stable = False
-
-    if crystal_type == "rhombohedral-2":
-        to_print += "Rhombohedral (class-2): i.e structures with point group: 3, -3 \n"
-        to_print += "Born stability criteria for the stability of Rhombohedral-1 class system are: Ref.[1]  \n"
-        to_print += "(i) C11 - C12 > 0;    (ii) C13^2 < (1/2)*C33(C11 + C12);   (iii) C14^2 + C15^2 < (1/2)*C44*(C11-C12) = C44*C66; \n(iv)  C44 > 0;  Note: C15 is added.. \n "
-
-        if c[0][0] - c[0][1] > 0.0:
-            to_print += "Condition (i) is satisfied."
-            condition1 = True
-        else:
-            to_print += "Condition (i) is NOT satisfied."
-            condition1 = False
-
-        if c[0][2] * c[0][2] < (0.5) * c[2][2] * (c[0][0] + c[0][1]):
-            to_print += "Condition (ii) is satisfied."
-            condition2 = True
-        else:
-            to_print += "Condition (ii) is NOT satisfied."
-            condition2 = False
-
-        if c[0][3] * c[0][3] + c[0][4] * c[0][4] < 0.5 * c[3][3] * (c[0][0] - c[0][1]):
-            to_print += "Condition (iii) is satified."
-            condition3 = True
-        else:
-            to_print += "Condition (iii) is NOT satisfied."
-            condition3 = False
-
-        if c[3][3] > 0.0:
-            to_print += "Condition (iv) is satisfied."
-            condition4 = True
-        else:
-            to_print += "Condition (iv) is NOT satisfied."
-            condition4 = False
-
-        conditions = (condition1, condition2, condition3, condition4)
-
-        for condition in conditions:
-            if condition == False:
-                stable = False
-
-    if crystal_type == "orthorhombic":
-        to_print += "Orthorhombic crystal system.... \n"
-        to_print += "Born stability criteria for the stability of Orthorhombic systems are: Ref.[1]  \n"
-        to_print += "(i) C11 > 0;   (ii) C11*C22 > C12^2;   (iii) C11*C22*C33 + 2C12*C13*C23 - C11*C23^2 - C22*C13^2 - C33*C12^2 > 0; \n(iv)  C44 > 0;   (v)  C55 > 0 ;   (vi)  C66 > 0 \n"
-
-        # check (i)   keep in mind list starts with 0, so c11 is stored as c00
-        if c[0][0] > 0.0:
-            to_print += "Condition (i) is satisfied."
-            condition1 = True
-        else:
-            to_print += "Condition (i) is NOT satisfied."
-            condition1 = False
-
-        if c[0][0] * c[1][1] > c[0][1] * (c[0][1]):
-            to_print += "Condition (ii) is satisfied."
-            condition2 = True
-        else:
-            to_print += "Condition (ii) is NOT satisfied."
-            condition2 = False
-
-        if (
-            c[0][0] * c[1][1] * c[2][2]
-            + 2 * c[0][1] * c[0][2] * c[1][2]
-            - c[0][0] * c[1][2] * c[1][2]
-            - c[1][1] * c[0][2] * c[0][2]
-            - c[2][2] * c[0][1] * c[0][1]
-            > 0
-        ):
-            to_print += "Condition (iii) is satisfied."
-            condition3 = True
-        else:
-            to_print += "Condition (iii) is NOT satisfied."
-            condition3 = False
-
-        if c[3][3] > 0.0:
-            to_print += "Condition (iv) is satisfied."
-            condition4 = True
-        else:
-            to_print += "Condition (iv) is NOT satisfied."
-            condition4 = False
-
-        if c[4][4] > 0.0:
-            to_print += "Condition (v) is satisfied."
-            condition5 = True
-        else:
-            to_print += "Condition (v) is NOT satisfied."
-            condition5 = False
-
-        if c[5][5] > 0.0:
-            to_print += "Condition (vi) is satisfied."
-            condition6 = True
-        else:
-            to_print += "Condition (vi) is NOT satisfied."
-            condition6 = False
-
-        conditions = (
-            condition1,
-            condition2,
-            condition3,
-            condition4,
-            condition5,
-            condition6,
-        )
-
-        for condition in conditions:
-            if condition == False:
-                stable = False
-
-    if crystal_type == "monoclinic":
+    elif crystal_type == "monoclinic":
         to_print += "Monoclinic crystal system.... \n"
         to_print += "Born stability criteria for the stability of monoclinic systems are: Ref.[1,2]  \n"
         to_print += "(i) C11 > 0;  (ii)  C22 > 0; (iii)  C33 > 0; \n(iv)  C44 > 0;   (v)  C55 > 0 ;   (vi)  C66 > 0  "
@@ -425,17 +232,209 @@ def stability_test(matrix, crystal_type, verbose=True):
             if condition == False:
                 stable = False
 
+    elif crystal_type == "orthorhombic":
+        to_print += "Orthorhombic crystal system.... \n"
+        to_print += "Born stability criteria for the stability of Orthorhombic systems are: Ref.[1]  \n"
+        to_print += "(i) C11 > 0;   (ii) C11*C22 > C12^2;   (iii) C11*C22*C33 + 2C12*C13*C23 - C11*C23^2 - C22*C13^2 - C33*C12^2 > 0; \n(iv)  C44 > 0;   (v)  C55 > 0 ;   (vi)  C66 > 0 \n"
+
+        # check (i)   keep in mind list starts with 0, so c11 is stored as c00
+        if c[0][0] > 0.0:
+            to_print += "Condition (i) is satisfied."
+            condition1 = True
+        else:
+            to_print += "Condition (i) is NOT satisfied."
+            condition1 = False
+
+        if c[0][0] * c[1][1] > c[0][1] * (c[0][1]):
+            to_print += "Condition (ii) is satisfied."
+            condition2 = True
+        else:
+            to_print += "Condition (ii) is NOT satisfied."
+            condition2 = False
+
+        if (
+            c[0][0] * c[1][1] * c[2][2]
+            + 2 * c[0][1] * c[0][2] * c[1][2]
+            - c[0][0] * c[1][2] * c[1][2]
+            - c[1][1] * c[0][2] * c[0][2]
+            - c[2][2] * c[0][1] * c[0][1]
+            > 0
+        ):
+            to_print += "Condition (iii) is satisfied."
+            condition3 = True
+        else:
+            to_print += "Condition (iii) is NOT satisfied."
+            condition3 = False
+
+        if c[3][3] > 0.0:
+            to_print += "Condition (iv) is satisfied."
+            condition4 = True
+        else:
+            to_print += "Condition (iv) is NOT satisfied."
+            condition4 = False
+
+        if c[4][4] > 0.0:
+            to_print += "Condition (v) is satisfied."
+            condition5 = True
+        else:
+            to_print += "Condition (v) is NOT satisfied."
+            condition5 = False
+
+        if c[5][5] > 0.0:
+            to_print += "Condition (vi) is satisfied."
+            condition6 = True
+        else:
+            to_print += "Condition (vi) is NOT satisfied."
+            condition6 = False
+
+        conditions = (
+            condition1,
+            condition2,
+            condition3,
+            condition4,
+            condition5,
+            condition6,
+        )
+
+        for condition in conditions:
+            if condition == False:
+                stable = False
+
+    elif crystal_type == "rhombohedral-1":
+        to_print += "Rhombohedral (class-1): point group: 3m, -3m and 32 \n"
+        to_print += "Born stability criteria for this class are: Ref.[1]  \n"
+        to_print += "(i) C11 - C12 > 0;    (ii) C13^2 < (1/2)*C33(C11 + C12);   (iii) C14^2 < (1/2)*C44*(C11-C12) = C44*C66; \n(iv)  C44 > 0; \n "
+
+        if c[0][0] - c[0][1] > 0.0:
+            to_print += "Condition (i) is satisfied."
+            condition1 = True
+        else:
+            to_print += "Condition (i) is NOT satisfied."
+            condition1 = False
+
+        if (c[0][2] * c[0][2]) < (0.5) * c[2][2] * (c[0][0] + c[0][1]):
+            to_print += "Condition (ii) is satisfied."
+            condition2 = True
+        else:
+            to_print += "Condition (ii) is NOT satisfied."
+            condition2 = False
+
+        if c[0][3] * c[0][3] < 0.5 * c[3][3] * (c[0][0] - c[0][1]):
+            to_print += "Condition (iii) is satisfied."
+            condition3 = True
+        else:
+            to_print += "Condition (iii) is NOT satisfied."
+            condition3 = False
+
+        if c[3][3] > 0.0:
+            to_print += "Condition (iv) is satisfied."
+            condition4 = True
+        else:
+            to_print += "Condition (iv) is NOT satisfied."
+            condition4 = False
+
+        conditions = (condition1, condition2, condition3, condition4)
+
+        for condition in conditions:
+            if condition == False:
+                stable = False
+
+    elif crystal_type == "rhombohedral-2":
+        to_print += "Rhombohedral (class-2): i.e structures with point group: 3, -3 \n"
+        to_print += "Born stability criteria for the stability of Rhombohedral-1 class system are: Ref.[1]  \n"
+        to_print += "(i) C11 - C12 > 0;    (ii) C13^2 < (1/2)*C33(C11 + C12);   (iii) C14^2 + C15^2 < (1/2)*C44*(C11-C12) = C44*C66; \n(iv)  C44 > 0;  Note: C15 is added.. \n "
+
+        if c[0][0] - c[0][1] > 0.0:
+            to_print += "Condition (i) is satisfied."
+            condition1 = True
+        else:
+            to_print += "Condition (i) is NOT satisfied."
+            condition1 = False
+
+        if c[0][2] * c[0][2] < (0.5) * c[2][2] * (c[0][0] + c[0][1]):
+            to_print += "Condition (ii) is satisfied."
+            condition2 = True
+        else:
+            to_print += "Condition (ii) is NOT satisfied."
+            condition2 = False
+
+        if c[0][3] * c[0][3] + c[0][4] * c[0][4] < 0.5 * c[3][3] * (c[0][0] - c[0][1]):
+            to_print += "Condition (iii) is satified."
+            condition3 = True
+        else:
+            to_print += "Condition (iii) is NOT satisfied."
+            condition3 = False
+
+        if c[3][3] > 0.0:
+            to_print += "Condition (iv) is satisfied."
+            condition4 = True
+        else:
+            to_print += "Condition (iv) is NOT satisfied."
+            condition4 = False
+
+        conditions = (condition1, condition2, condition3, condition4)
+
+        for condition in conditions:
+            if condition == False:
+                stable = False
+
+    elif crystal_type == "tetragonal":
+        to_print += "Tetragonal crystal system \n"
+        to_print += "Born stability criteria for the stability of Tetragonal system are: Ref.[1]  \n"
+        to_print += "(i) C11 - C12 > 0;    (ii) 2*C13^2 < C33(C11 + C12);   (iii) C44 > 0; \n(iv) C66 > 0;    (v) 2C16^2 < C66*(C11-C12) \n "
+
+        # check (i)   keep in mind list starts with 0, so c11 is stored as c00
+        if c[0][0] - c[0][1] > 0.0:
+            to_print += "Condition (i) is satisfied."
+            condition1 = True
+        else:
+            to_print += "Condition (i) is NOT satisfied."
+            condition1 = False
+
+        if 2 * (c[0][2] * c[0][2]) < c[2][2] * (c[0][0] + c[0][1]):
+            to_print += "Condition (ii) is satisfied."
+            condition2 = True
+        else:
+            to_print += "Condition (ii) is NOT satisfied."
+            condition2 = False
+
+        if c[3][3] > 0.0:
+            to_print += "Condition (iii) is satisfied."
+            condition3 = True
+        else:
+            to_print += "Condition (iii) is NOT satisfied."
+            condition3 = False
+
+        if c[5][5] > 0.0:
+            to_print += "Condition (iv) is satisfied."
+            condition4 = True
+        else:
+            to_print += "Condition (iv) is NOT satisfied."
+            condition4 = False
+
+        if 2 * c[0][5] * c[0][5] < c[5][5] * (c[0][0] - c[0][1]):
+            to_print += "Condition (v) is satisfied."
+            condition5 = True
+        else:
+            to_print += "Condition (v) is NOT satisfied."
+            condition5 = False
+
+        conditions = (condition1, condition2, condition3, condition4, condition5)
+
+        for condition in conditions:
+            if condition == False:
+                stable = False
+
     if crystal_type == "triclinic":
         to_print += "Triclinic crystal system.... \n"
         to_print += "Triclinic systems only criteria for stability are positive eigen values of the elastic tensor  \n"
         evals = list(LA.eigvals(c))
         evals_print = list(np.around(np.array(evals), 3))
-        to_print += "%s" % evals_print
+        to_print += f"{evals_print}"
         check = 0
-        for i in range(len(evals)):
-            if evals[i] > 0.0:
+        for eval_ in evals:
+            if eval_ > 0.0:
                 stable = True
-                pass
             else:
                 check = 1
                 stable = False
@@ -520,19 +519,16 @@ def stability_test_2d(matrix, lattice_type, verbose):
             if condition == False:
                 stable = False
 
-    elif lattice_type == "rectangular" or lattice_type == "rectangular-center":
+    elif lattice_type in ["rectangular", "rectangular-center"]:
         to_print += "Rectangular lattice or Rectangular Center lattice \n"
         to_print += "Stability criteria for the stability of rectangular lattice or rectangular Center lattic are: \n"
         to_print += "(i) 1/2*(C11 + C22 + (4(C12)**2 - (C11 -C22))**0.5)> 0;    (ii) 1/2*(C11 + C22 - (4(C12)**2 - (C11 -C22))**0.5)> 0 ;  (iii) C33 > 0     \n "
 
         if (
-            0.5
-            * (
-                c[0][0]
-                + c[1][1]
-                + (4 * (c[0][1]) ** 2 + (c[0][0] - c[1][1]) ** 2) ** 0.5
-            )
-            > 0.0
+            c[0][0]
+            + c[1][1]
+            + (4 * (c[0][1]) ** 2 + (c[0][0] - c[1][1]) ** 2) ** 0.5
+            > 0.0 / 0.5
         ):
             to_print += "Condition (i) satisfied."
             condition1 = True
@@ -541,13 +537,10 @@ def stability_test_2d(matrix, lattice_type, verbose):
             condition1 = False
 
         if (
-            0.5
-            * (
-                c[0][0]
-                + c[1][1]
-                - (4 * (c[0][1]) ** 2 + (c[0][0] - c[1][1]) ** 2) ** 0.5
-            )
-            > 0.0
+            c[0][0]
+            + c[1][1]
+            - (4 * (c[0][1]) ** 2 + (c[0][0] - c[1][1]) ** 2) ** 0.5
+            > 0.0 / 0.5
         ):
             to_print += "Condition (ii) satisfied."
             condition2 = True
@@ -602,7 +595,7 @@ def stability_test_2d(matrix, lattice_type, verbose):
             if condition == False:
                 stable = False
     else:
-        raise NameError("lattice type %s not in recognized" % lattice_type)
+        raise NameError(f"lattice type {lattice_type} not in recognized")
 
     if verbose:
         print(to_print)

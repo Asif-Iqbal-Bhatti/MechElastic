@@ -627,8 +627,7 @@ class ElasticProperties:
 
         """
 
-        a_cb = (self.G_v - self.G_r) / (self.G_v + self.G_r)
-        return a_cb
+        return (self.G_v - self.G_r) / (self.G_v + self.G_r)
 
     @property
     def anisotropy_Chung_Buessem(self):
@@ -806,12 +805,11 @@ class ElasticProperties:
         q = self.structure.natoms
         density = self.structure.density
         total_mass = np.sum(self.structure.masses)
-        theta = (
+        return (
             (h_Planck / kB)
             * self.velocity_average
             * np.cbrt((3 * q * N_avogadro * density) / (4 * (np.pi) * total_mass))
         )
-        return theta
 
     @property
     def melting_temperature(self):
@@ -962,11 +960,10 @@ class ElasticProperties:
         None.
 
         """
-        wf = open(outfile, "w")
-        json.dump(
-            self.to_dict(symprec), wf, sort_keys=True, indent=4, separators=(",", ": ")
-        )
-        wf.close()
+        with open(outfile, "w") as wf:
+            json.dump(
+                self.to_dict(symprec), wf, sort_keys=True, indent=4, separators=(",", ": ")
+            )
 
     def to_xml(self, outfile="elastic_properties.xml", symprec=1e-5):
         """
@@ -984,11 +981,10 @@ class ElasticProperties:
         None.
 
         """
-        wf = open(outfile, "w")
-        xml = dicttoxml(self.to_dict(symprec))
-        dom = parseString(xml)
-        wf.write(dom.toprettyxml())
-        wf.close()
+        with open(outfile, "w") as wf:
+            xml = dicttoxml(self.to_dict(symprec))
+            dom = parseString(xml)
+            wf.write(dom.toprettyxml())
 
     def to_file(self, outfile="elastic_properties.txt"):
         """
@@ -1004,9 +1000,8 @@ class ElasticProperties:
         None.
 
         """
-        wf = open(outfile, "w")
-        wf.write(self.__str__())
-        wf.close()
+        with open(outfile, "w") as wf:
+            wf.write(self.__str__())
 
     def __str__(self):
         """
@@ -1018,8 +1013,11 @@ class ElasticProperties:
 
         """
 
-        ret = ""
-        ret += "\n------------------------------------------------------------------\n"
+        ret = (
+            ""
+            + "\n------------------------------------------------------------------\n"
+        )
+
         ret += "Elastic Moduli\n"
         ret += "------------------------------------------------------------------\n\n"
 
@@ -1078,7 +1076,7 @@ class ElasticProperties:
         ret += "     CP < 0 (-ve) indicates that covalent bonding dominates\n"
 
         ret += "CP (GPa) =  %10.3f  \n" % self.cauchy_pressure
-        ret += "Bonding is mainly " + self.bonding_type + "\n"
+        ret += f"Bonding is mainly {self.bonding_type}" + "\n"
 
         ret += "\n------------------------------------------------------------------\n"
         ret += "Elastic Anisotropy\n"

@@ -30,8 +30,11 @@ latticelist = np.array(
 def crystal_select(cnew=None, cell=None, crystal_type=None, verbose=True):
     """This method selects crystal types."""
 
-    to_print = ""
-    to_print += "\n------------------------------------------------------------------\n"
+    to_print = (
+        ""
+        + "\n------------------------------------------------------------------\n"
+    )
+
     to_print += "Mechanical Stability Tests"
     to_print += "\n------------------------------------------------------------------\n"
 
@@ -54,10 +57,7 @@ def crystal_select(cnew=None, cell=None, crystal_type=None, verbose=True):
         if spg >= 75 and spg <= 142:
             crystal_type = "tetragonal"
         if spg >= 143 and spg <= 167:
-            if spg == 155 or spg == 160 or spg == 166:
-                crystal_type = "rhombohedral-1"
-            else:
-                crystal_type = "rhombohedral-2"
+            crystal_type = "rhombohedral-1" if spg in {155, 160, 166} else "rhombohedral-2"
         if spg >= 168 and spg <= 194:
             crystal_type = "hexagonal"
         if spg >= 195:
@@ -74,10 +74,11 @@ def lattice_select(cnew=None, cell=None, lattice_type=None, verbose=True):
     to_print = ""
     if lattice_type is not None:
 
-        to_print = ""
-        to_print += (
-            "\n------------------------------------------------------------------\n"
+        to_print = (
+            ""
+            + "\n------------------------------------------------------------------\n"
         )
+
         to_print += "Mechanical Stability Tests"
         to_print += (
             "\n------------------------------------------------------------------\n"
