@@ -53,10 +53,10 @@ def make3DPlot(func, legend="", npoints=100):
     v = np.linspace(0, 2 * np.pi, 2 * npoints)
     r = np.zeros(len(u) * len(v))
 
-    dataX = [[0.0 for i in range(len(v))] for j in range(len(u))]
-    dataY = [[0.0 for i in range(len(v))] for j in range(len(u))]
-    dataZ = [[0.0 for i in range(len(v))] for j in range(len(u))]
-    dataR = [["0.0" for i in range(len(v))] for j in range(len(u))]
+    dataX = [[0.0 for _ in range(len(v))] for _ in range(len(u))]
+    dataY = [[0.0 for _ in range(len(v))] for _ in range(len(u))]
+    dataZ = [[0.0 for _ in range(len(v))] for _ in range(len(u))]
+    dataR = [["0.0" for _ in range(len(v))] for _ in range(len(u))]
 
     count = 0
     for cu in range(len(u)):
@@ -106,10 +106,10 @@ def make3DPlotPosNeg(func, legend="", npoints=100):
     u = np.linspace(0, np.pi, npoints)
     v = np.linspace(0, 2 * np.pi, 2 * npoints)
 
-    dataX1 = [[0.0 for i in range(len(v))] for j in range(len(u))]
-    dataY1 = [[0.0 for i in range(len(v))] for j in range(len(u))]
-    dataZ1 = [[0.0 for i in range(len(v))] for j in range(len(u))]
-    dataR1 = [["0.0" for i in range(len(v))] for j in range(len(u))]
+    dataX1 = [[0.0 for _ in range(len(v))] for _ in range(len(u))]
+    dataY1 = [[0.0 for _ in range(len(v))] for _ in range(len(u))]
+    dataZ1 = [[0.0 for _ in range(len(v))] for _ in range(len(u))]
+    dataR1 = [["0.0" for _ in range(len(v))] for _ in range(len(u))]
 
     count = 0
     for cu in range(len(u)):
@@ -136,10 +136,10 @@ def make3DPlotPosNeg(func, legend="", npoints=100):
             )
             count = count + 1
 
-    dataX2 = [[0.0 for i in range(len(v))] for j in range(len(u))]
-    dataY2 = [[0.0 for i in range(len(v))] for j in range(len(u))]
-    dataZ2 = [[0.0 for i in range(len(v))] for j in range(len(u))]
-    dataR2 = [["0.0" for i in range(len(v))] for j in range(len(u))]
+    dataX2 = [[0.0 for _ in range(len(v))] for _ in range(len(u))]
+    dataY2 = [[0.0 for _ in range(len(v))] for _ in range(len(u))]
+    dataZ2 = [[0.0 for _ in range(len(v))] for _ in range(len(u))]
+    dataR2 = [["0.0" for _ in range(len(v))] for _ in range(len(u))]
 
     count = 0
     for cu in range(len(u)):
@@ -194,15 +194,15 @@ def make3DPlot2(func, legend="", npoints=200):
     w = [v[i] + np.pi for i in range(1, len(v))]
     v = np.append(v, w)
 
-    dataX1 = [[0.0 for i in range(len(v))] for j in range(len(u))]
-    dataY1 = [[0.0 for i in range(len(v))] for j in range(len(u))]
-    dataZ1 = [[0.0 for i in range(len(v))] for j in range(len(u))]
-    dataR1 = [["0.0" for i in range(len(v))] for j in range(len(u))]
+    dataX1 = [[0.0 for _ in range(len(v))] for _ in range(len(u))]
+    dataY1 = [[0.0 for _ in range(len(v))] for _ in range(len(u))]
+    dataZ1 = [[0.0 for _ in range(len(v))] for _ in range(len(u))]
+    dataR1 = [["0.0" for _ in range(len(v))] for _ in range(len(u))]
 
-    dataX2 = [[0.0 for i in range(len(v))] for j in range(len(u))]
-    dataY2 = [[0.0 for i in range(len(v))] for j in range(len(u))]
-    dataZ2 = [[0.0 for i in range(len(v))] for j in range(len(u))]
-    dataR2 = [["0.0" for i in range(len(v))] for j in range(len(u))]
+    dataX2 = [[0.0 for _ in range(len(v))] for _ in range(len(u))]
+    dataY2 = [[0.0 for _ in range(len(v))] for _ in range(len(u))]
+    dataZ2 = [[0.0 for _ in range(len(v))] for _ in range(len(u))]
+    dataR2 = [["0.0" for i in range(len(v))] for _ in range(len(u))]
 
     count = 0
     r = [0.0, 0.0, np.pi / 2.0, np.pi / 2.0]

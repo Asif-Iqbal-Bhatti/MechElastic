@@ -44,7 +44,7 @@ def print_warning_2D():
               thin monolayers. One needs to account for the thickness of the 2D system, if
               the system is considerably thick.
               I HOPE YOU UNDERSTAND WHAT YOU ARE DOING HERE. """
-    print(("WARNING:  " + warning_str))
+    print(f"WARNING:  {warning_str}")
 
     return
 

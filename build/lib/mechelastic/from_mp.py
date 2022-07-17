@@ -50,7 +50,7 @@ def from_mp(mp_id, api_key, crystal=None, lattice_type=None, outfile=None):
     )[0]
     elastic_tensor = array(data["elasticity"]["elastic_tensor_original"])
     mp_structure = data["structure"]
-    symbols = [x for x in mp_structure.symbol_set]
+    symbols = list(mp_structure.symbol_set)
     positions = mp_structure.frac_coords
     lattice = array(mp_structure.lattice.matrix)
     structure = Structure(symbols, positions, lattice)

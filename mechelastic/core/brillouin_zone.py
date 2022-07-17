@@ -37,9 +37,7 @@ class Lines:
                 self.connectivity.append([point_1, point_2])
 
     def _create_pyvista(self):
-        cell = []
-        for iline in self.connectivity:
-            cell.append([2, iline[0], iline[1]])
+        cell = [[2, iline[0], iline[1]] for iline in self.connectivity]
         self.pyvista_line.lines = cell
 
     def _create_trimesh(self):
@@ -98,10 +96,11 @@ class BrillouinZone(Surface):
                         self.reciprocal[1] + k * self.reciprocal[2]
                     kpoints.append(vec)
         brill = Voronoi(np.array(kpoints))
-        faces = []
-        for idict in brill.ridge_dict:
-            if idict[0] == 13 or idict[1] == 13:
-                faces.append(brill.ridge_dict[idict])
+        faces = [
+            brill.ridge_dict[idict]
+            for idict in brill.ridge_dict
+            if idict[0] == 13 or idict[1] == 13
+        ]
 
         verts = brill.vertices
         return np.array(verts), np.array(faces)

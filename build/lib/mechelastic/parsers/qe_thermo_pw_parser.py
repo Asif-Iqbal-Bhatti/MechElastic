@@ -33,15 +33,15 @@ class QE_thermo_pw_Parser:
         self.outfile = outfile
         self.infile  = infile
 
-        
+
         self.elastic_tensor = None
         self.compaliance_tensor = None
         self.structure = None
         self.density = None
-                
+
         self.outText = None
         self.inText  = None
-        
+
         self._parse_files()
 
 

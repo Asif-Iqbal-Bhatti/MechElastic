@@ -42,10 +42,8 @@ class AbinitOutput:
         after running anaddb.
         """
 
-        rf = open(self.anaddbfile, "r")
-        datamat = rf.read()
-        rf.close()
-
+        with open(self.anaddbfile, "r") as rf:
+            datamat = rf.read()
         ET = re.findall(
             r"Elastic\s*Tensor\s*\(relaxed\s*ion\)\s*[\sA-Za-z:\d\^()]*\n([-\s0-9.]*)",
             datamat,
@@ -62,9 +60,8 @@ class AbinitOutput:
 
         """
 
-        rf = open(self.infile)
-        self.text = rf.read()
-        rf.close()
+        with open(self.infile) as rf:
+            self.text = rf.read()
         data = self.text
         mass = np.array(
             [float(x) for x in re.findall(r"amu\s*([E+=0-9.\s]*)\n", data)[0].split()]
@@ -73,7 +70,7 @@ class AbinitOutput:
             re.findall("Unit\s*cell\s*volume\s*ucvol\s*=\s*([-+0-9.E\s]*)", data)[-1]
         )
         # converting from Bohr^3 to Angstrom^3
-        volume = volume * (0.529177249) ** 3
+        volume *= (0.529177249) ** 3
 
         nions = int(re.findall(r"\bnatom\b\s*([0-9]*)", data)[-1])
 
@@ -83,10 +80,7 @@ class AbinitOutput:
         iontype = [typat.count(i) for i in species_grouped]
         natoms = np.array([typat.count(i) for i in species_grouped])
 
-        # Sometimes LATTYP is not present.
-        # Only parse if available.
-        lattice_type = re.findall("LATTYP.*", data)
-        if lattice_type:
+        if lattice_type := re.findall("LATTYP.*", data):
             lattyp = lattice_type[-1]
 
         full_latt = re.findall(r"\(Bohr,Bohr\^-1\):*\n([-+0-9.RG=\(\)\s\n]*)\n", data)[
@@ -135,7 +129,7 @@ class AbinitOutput:
         atomic_numbers = np.zeros(nions, dtype=np.int32)
         k = 0
         for i in range(len(iontype)):
-            for j in range(iontype[i]):
+            for _ in range(iontype[i]):
                 atomic_numbers[k] = ELEMENTS[species[i]]
                 k = k + 1
 

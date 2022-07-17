@@ -95,7 +95,7 @@ class Isosurface(Surface):
                 self.nX // 2 * padding[0], self.nY // 2 * padding[1],
                 self.nZ // 2 * padding[2]
             ]
-       
+
 
         verts, faces, normals, values = self._get_isosurface(
             interpolation_factor)
@@ -142,26 +142,26 @@ class Isosurface(Surface):
 
         for iface in range(len(S2.faces)):
             normal = S2.face_normals[iface]
-            
-            
+
+
             center = np.average(S2.verts[S2.faces[iface]], axis=0)
 
 
 
             S1.pyvista_obj.clip(origin=center, normal=normal, inplace=True)
-        
+
 
         faces = []
         courser = 0
-        for i in range(S1.pyvista_obj.n_faces):
+        for _ in range(S1.pyvista_obj.n_faces):
             npoints = S1.pyvista_obj.faces[courser]
             face = []
             courser += 1
-            for ipoint in range(npoints):
+            for _ in range(npoints):
                 face.append(S1.pyvista_obj.faces[courser])
                 courser += 1
             faces.append(face)
-            
+
 
         return S1.pyvista_obj.points, faces
 
@@ -399,13 +399,7 @@ def map2matrix(XYZ, V):
             for iz in range(len(Z)):
                 condition3 = XYZ[:, 2] == Z[iz]
                 tot_cond = np.all([condition1, condition2, condition3], axis=0)
-                if len(V[tot_cond]) != 0:
-                    mapped_func[ix, iy, iz] = V[tot_cond][0]
-                    # kpoint_matrix[ikx, iky, ikz] = [
-                    #     kx[ikx], ky[iky], kz[ikz]]
-                else:
-                    mapped_func[ix, iy, iz] = np.nan
-                    # kpoint_matrix[ikx, iky, ikz] = [np.nan, np.nan, np.nan]
+                mapped_func[ix, iy, iz] = V[tot_cond][0] if len(V[tot_cond]) != 0 else np.nan
     return mapped_func
 
 
@@ -428,9 +422,6 @@ def fft_interpolate(function, interpolation_factor=2):
         "constant",
         constant_values=0,
     )
-    
-    new_matrix = np.fft.ifftshift(new_matrix)
-    interpolated = np.real(np.fft.ifftn(new_matrix)) * (interpolation_factor**
-                                                        3)
 
-    return interpolated
+    new_matrix = np.fft.ifftshift(new_matrix)
+    return np.real(np.fft.ifftn(new_matrix)) * (interpolation_factor**3)

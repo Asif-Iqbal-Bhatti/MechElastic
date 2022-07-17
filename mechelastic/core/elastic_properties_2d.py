@@ -50,8 +50,8 @@ class ElasticProperties2D:
         )
 
     def _c2d(self):
-        for i in range(0, 6):
-            for j in range(0, 6):
+        for i in range(6):
+            for j in range(6):
                 self.c2d[i, j] = (
                     self.elastic_tensor[i, j] * 0.1 * float(self.lattice_constant[2])
                 )
@@ -83,9 +83,7 @@ class ElasticProperties2D:
             Layer modulus
 
         """
-        Lm = 0.25 * (self.c2d[0][0] + self.c2d[1][1] + 2 * self.c2d[0][1])
-
-        return Lm
+        return 0.25 * (self.c2d[0][0] + self.c2d[1][1] + 2 * self.c2d[0][1])
 
     @property
     def layer_modulus(self):
@@ -114,11 +112,9 @@ class ElasticProperties2D:
 
         """
 
-        Y10 = (self.c2d[0][0] * self.c2d[1][1] - self.c2d[0][1] * self.c2d[0][1]) / (
-            self.c2d[1][1]
-        )
-
-        return Y10
+        return (
+            self.c2d[0][0] * self.c2d[1][1] - self.c2d[0][1] * self.c2d[0][1]
+        ) / (self.c2d[1][1])
 
     @property
     def Y01(self):
@@ -133,11 +129,9 @@ class ElasticProperties2D:
 
         """
 
-        Y01 = (self.c2d[0][0] * self.c2d[1][1] - self.c2d[0][1] * self.c2d[0][1]) / (
-            self.c2d[0][0]
-        )
-
-        return Y01
+        return (
+            self.c2d[0][0] * self.c2d[1][1] - self.c2d[0][1] * self.c2d[0][1]
+        ) / (self.c2d[0][0])
 
     @property
     def nu10(self):
@@ -152,9 +146,7 @@ class ElasticProperties2D:
 
         """
 
-        nu10 = self.c2d[0][1] / self.c2d[1][1]
-
-        return nu10
+        return self.c2d[0][1] / self.c2d[1][1]
 
     @property
     def nu01(self):
@@ -169,8 +161,7 @@ class ElasticProperties2D:
 
         """
 
-        nu01 = self.c2d[0][1] / self.c2d[0][0]
-        return nu01
+        return self.c2d[0][1] / self.c2d[0][0]
 
     @property
     def G2d(self):
@@ -183,9 +174,7 @@ class ElasticProperties2D:
             2D shear modulus
 
         """
-        G2d = self.c2d[5][5]
-
-        return G2d
+        return self.c2d[5][5]
 
     @property
     def shear_modulus_2d(self):

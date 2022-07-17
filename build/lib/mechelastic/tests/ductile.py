@@ -3,7 +3,4 @@
 
 def ductile_test(ratio):
     """Test for ductility."""
-    if ratio > 1.75:
-        return "ductile"
-    else:
-        return "brittle"
+    return "ductile" if ratio > 1.75 else "brittle"
